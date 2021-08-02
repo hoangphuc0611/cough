@@ -20,9 +20,9 @@ from keras.models import load_model, Model
 from keras.callbacks import ModelCheckpoint
 import random
 import string
-from tensorflow.keras.applications import InceptionV3
-from tensorflow.keras.models import Model
-from tensorflow.keras.preprocessing import image
+from keras.applications import InceptionV3
+from keras.models import Model
+from keras.preprocessing import image
 model_encode = InceptionV3(include_top=True, weights='imagenet')
 model_encode = Model(model_encode.input, model_encode.layers[-2].output)
 
@@ -112,5 +112,5 @@ def my_form_post():
     return render_template('client.html',text=result)
 
 # Thuc thi server
-if __name__ == '__main__':
-    app.run(debug=True, host='localhost',port=my_port)
+# if __name__ == '__main__':
+#     app.run(debug=True, host='localhost',port=my_port)
