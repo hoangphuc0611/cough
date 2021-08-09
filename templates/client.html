@@ -33,7 +33,7 @@
         </div>
 
     </div> -->
-    <div class="container">
+    <!-- <div class="container">
         <button id="gravar">Gravar</button>
         <button id="parar">Gravar</button>
         <form method="POST">
@@ -90,22 +90,21 @@
         parar.onclick = () => {
                     mediaRecorder.stop()
                 }
-    </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </script> -->
+    <div class="container">
+        <form method="post" enctype="multipart/form-data" class="form-group">
+            <div>
+                <label for="file">Select a file</label>
+                <input name="file" type="file" />
+            </div>
+            <div class="nhombtn">
+                <button type="submit" class="btn btn-primary">CHECK IT OUT!</button>
+            </div>
+        </form>
+        <div class="result">
+            <p style="font-size: 33px;" class="predict_product">{{message}}</p>
+        </div>
+    </div>
 </body>
 
 </html>

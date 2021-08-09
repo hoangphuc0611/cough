@@ -5,24 +5,16 @@ from flask_cors import CORS, cross_origin
 import urllib.request
 import joblib
 import os.path
-import csv
 import librosa
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn import preprocessing
-from sklearn.preprocessing import StandardScaler
 import os
-import json
-from tqdm import tqdm
 import librosa.display
-from keras.layers import Input, Dense
-from keras.models import load_model, Model
-from keras.callbacks import ModelCheckpoint
+from tensorflow.keras.models import load_model, Model
 import random
 import string
-from keras.applications import InceptionV3
-from keras.models import Model
-from keras.preprocessing import image
+from tensorflow.keras.applications import InceptionV3
+from tensorflow.keras.preprocessing import image
 model_encode = InceptionV3(include_top=True, weights='imagenet')
 model_encode = Model(model_encode.input, model_encode.layers[-2].output)
 
@@ -89,30 +81,33 @@ def file_to_str(link):
   print(123123)
   return str(np.argmax(model.predict(fea_vec.reshape(1,2048))))
 
-@app.route('/',methods=['POST'])
+@app.route('/',methods=['POST','GET'])
 def my_form_post():
     # print('hello')
     # text=request.form['u']
-    
-    # string_x = file_to_str('./img/mm.wav')
-    result=''
-    if string_x=='0':
-        result = 'healthy'
-    elif string_x=='1':
-        result = 'no_resp_illness_exposed'
-    elif string_x=='2':
-        result = 'positive_asymp'
-    elif string_x=='3':
-        result = 'positive_mild'
-    elif string_x=='4':
-        result = 'positive_moderate'
-    elif string_x=='5':
-        result = 'recovered_full'
-    elif string_x=='6':
-        result = 'resp_illness_not_identified'
-    print(result)
-    return render_template('client.html',text=result)
-
+    if request.method == "POST":
+        file = request.files["file"]
+        file.save(os.path.join("static", file.filename))
+        print(file)
+        string_x = file_to_str(os.path.join("static", file.filename))
+        result=''
+        if string_x=='0':
+            result = 'healthy'
+        elif string_x=='1':
+            result = 'no_resp_illness_exposed'
+        elif string_x=='2':
+            result = 'positive_asymp'
+        elif string_x=='3':
+            result = 'positive_mild'
+        elif string_x=='4':
+            result = 'positive_moderate'
+        elif string_x=='5':
+            result = 'recovered_full'
+        elif string_x=='6':
+            result = 'resp_illness_not_identified'
+        print(result)
+        return render_template('client.html',message=result)
+    return render_template("client.html")
 # Thuc thi server
 # if __name__ == '__main__':
 #     app.run(debug=True, host='localhost',port=my_port)
