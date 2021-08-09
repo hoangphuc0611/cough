@@ -91,8 +91,10 @@ def file_to_str(link):
 
 @app.route('/',methods=['POST'])
 def my_form_post():
-    text=request.form['u']
-    string_x = file_to_str(text)
+    # print('hello')
+    # text=request.form['u']
+    
+    # string_x = file_to_str('./img/mm.wav')
     result=''
     if string_x=='0':
         result = 'healthy'

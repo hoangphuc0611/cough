@@ -6,3 +6,4 @@ matplotlib
 librosa
 numpy
 tqdm
+pandas
